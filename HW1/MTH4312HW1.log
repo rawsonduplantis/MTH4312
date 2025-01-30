@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  30 JAN 2025 05:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  30 JAN 2025 05:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -919,17 +919,17 @@ Package rerunfilecheck Info: File `MTH4312HW1.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  36786 strings out of 474165
- 847906 string characters out of 5749491
+ 847955 string characters out of 5749491
  1981542 words of memory out of 5000000
  58504 multiletter control sequences out of 15000+600000
  567446 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  110i,15n,117p,1114b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-pdfTeX warning (dest): name{target\040name} has been referenced but does not exist, replaced by a fixed one
+pdfTeX warning (dest): name{https://github.com/rawsonduplantis/MTH4312/blob/main/HW1/hw1.py} has been referenced but does not exist, replaced by a fixed one
 
 <x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><x:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on MTH4312HW1.pdf (4 pages, 154096 bytes).
+Output written on MTH4312HW1.pdf (4 pages, 154026 bytes).
 PDF statistics:
  114 PDF objects out of 1000 (max. 8388607)
  81 compressed objects within 1 object stream
