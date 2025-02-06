@@ -121,6 +121,7 @@ citecolor=blue, urlcolor=blue]{hyperref}
 \subsection{Enigma}
 
 %\begin{problemgroup}
+    \setcounter{problem}{0}
     \begin{problem}
             This is a counting problem focusing on the Enigma plugboard. Recall that the plugboard permutation interchanges some of the letters in pairs. For example, A and F might be interchanged, and M and X might be interchanged.
             \begin{enumerate}[label=(\alph*)]
@@ -140,13 +141,26 @@ citecolor=blue, urlcolor=blue]{hyperref}
         Prove that $r_{k+1}$ in the Euclidean Algorithm is the greatest common divisor of $a$ and $b$.
     \end{problem}
     \begin{proof}
-        Suppose $a,b\in\mathbb{Z}$ such that $a\geq 0$, $b>0$. We'll show using the Euclidean Algorithm that its penultimate remainder is a common divisor of $a$ and $b$ and that all other common divisors divide this penultimate remainder. Starting with the expression from the theorem of the Division Algorithm:
-        \begin{align*}
-            a=q_1b+r_1
-        \end{align*}
-    \end{proof}
+        Suppose $a,b\in\mathbb{Z}$ such that $a\geq 0$, $b>0$. We'll show using the Euclidean Algorithm that its penultimate remainder is a common divisor of $a$ and $b$ and that all other common divisors divide this penultimate remainder.
 
+        The Euclidean Algorithm is based on the Division Algorithm, which states that for any two integers $a$ and $b$ with $b > 0$, there exist unique integers $q_1$ and $r_1$ such that:
+        \begin{align*}
+            a = q_1 b + r_1, \quad 0 \leq r_1 < b.
+        \end{align*}
+        If $r_1 = 0$, then $b$ divides $a$, and $\gcd(a, b) = b$. Otherwise, apply the algorithm iteratively:
+        \begin{align*}
+            b &= q_2 r_1 + r_2, \quad 0 \leq r_2 < r_1, \\
+            r_1 &= q_3 r_2 + r_3, \quad 0 \leq r_3 < r_2, \\
+            &\vdots \\
+            r_k &= q_{k+2} r_{k+1} + r_{k+2}, \quad 0 \leq r_{k+2} < r_{k+1}, \\
+            r_{k+1} &= q_{k+3} r_{k+2} + 0.
+        \end{align*}
+        Since the remainders strictly decrease and are non-negative, the algorithm terminates with some remainder $r_{k+1}$ such that $r_{k+2} = 0$. This means $r_{k+1}$ divides $r_k$.
+        
+        First, from the recursive equations above, each remainder is expressed as a linear combination of the previous two terms. Since $r_{k+1}$ divides $r_k$, and $r_k$ was formed using $r_{k-1}$ and $r_{k-2}$, by induction, $r_{k+1}$ divides all previous remainders, including $b$ and $a$. Thus, $r_{k+1}$ is a common divisor of $a$ and $b$. Next, suppose $d$ is any common divisor of $a$ and $b$. Then, from the equations $d \mid a, \ d \mid b \implies d \mid r_1$. By induction, since each remainder is formed by a linear combination of the previous two, $d$ must divide each remainder, including $r_{k+1}$. Since $r_{k+1}$ is itself a divisor of $a$ and $b$, and it is the largest such divisor in this process, it follows that $\gcd(a, b) = r_{k+1}$. Therefore, the penultimate remainder in the Euclidean Algorithm is the greatest common divisor of $a$ and $b$.
+    \end{proof}
 %\end{problemgroup}
+
 
 \iffalse
 % \maketitle
