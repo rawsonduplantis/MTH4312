@@ -1,0 +1,502 @@
+% !TEX root = MTH4312HW3.tex
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,scrextend}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\newcommand{\cont}{\subseteq}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage[mathscr]{euscript}
+\let\euscr\mathscr \let\mathscr\relax% just so we can load this and rsfs
+\usepackage[scr]{rsfso}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{etoolbox}
+\usepackage{tcolorbox}
+\usepackage{mdframed}
+\usepackage{changepage}
+\usepackage[table]{xcolor}
+\usepackage[colorlinks=true, pdfstartview=FitV, linkcolor=blue,
+citecolor=blue, urlcolor=blue]{hyperref}
+
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand{\ddx}{\frac{d}{dx}}
+\newcommand{\dfdx}{\frac{df}{dx}}
+\newcommand{\ddxp}[1]{\frac{d}{dx}\left( #1 \right)}
+\newcommand{\dydx}{\frac{dy}{dx}}
+\let\ds\displaystyle
+\newcommand{\intx}[1]{\int #1 \, dx}
+\newcommand{\intt}[1]{\int #1 \, dt}
+\newcommand{\defint}[3]{\int_{#1}^{#2} #3 \, dx}
+\newcommand{\imp}{\Rightarrow}
+\newcommand{\un}{\cup}
+\newcommand{\inter}{\cap}
+\newcommand{\ps}{\mathscr{P}}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newenvironment{answer}
+    {\begin{adjustwidth}{0pt}{0pt}}
+    {\end{adjustwidth}}
+
+\newtheorem*{sol}{Solution}
+\newtheorem*{claim}{Claim}
+\newtheorem{problem}{Problem}
+\theoremstyle{remark}  % Style for remarks
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+\setlength{\abovecaptionskip}{0pt} % Reduce space above caption
+% EVERYTHING ABOVE THIS LINE IS JUST PREABLE, NO NEED TO MESS WITH IT.__________________________________________________________________________________________
+%
+
+% Section 1.2: 4 & 5, Section 1.3: 1 & 4, Matrix Practice
+
+\lhead{Rawson Duplantis}
+\chead{MTH 4312: Cryptology}
+\rhead{\today}
+\section{Cryptography: An Overview}
+\stepcounter{subsection}
+\subsection{Enigma}
+
+%\begin{problemgroup}
+    \setcounter{problem}{3}
+    \begin{problem}
+        Consider the notion of "evolution" that we introduced in this section. We can formulate this notion mathematically as follows. For a given initial setting of the machine, as determined, for example, by the daily key, let $P_m$ be the permutation executed by the machine after $m$ keystrokes. We considered a case in which, for some unknown letter $x$, $P_0x=Q$ and $P_3x=E$. This is what we meant by saying that $Q$ "evolves" into $E$. Evidently the permutation that expresses this evolution is $P_3P_0^{-1}$. (Applying $P_0^{-1}$ to $Q$ gives $x$, and then applying $P_3$ gives $E$.) Show that the cycle lengths of the "evolution" $P_3P_0^{-1}$ are indeed independent of the plugboard permutation $A$, as was noted by Rejewski. (Note that the permutation $P_m$ is given by Eq. (1.3) with appropriate values of $n_1$, $n_2$, and $n_3$.)
+    \end{problem}
+    \begin{answer}
+        Intuitively, the cycle lengths won't be affected by any setting of the plugboard as the plugboard statically shuffles the characters the rotor-reflector assembly receives and provides. The problem can be rigorously outlined as it was by Rejewski using the following equation, where $A$ represents the involution of the plugboard ($A=A^{-1}$), $S^n$ represents the effect of rotating $n$ times, $R_i$ represents the $i$-th rotor, and $B$ represents the reflector. $$A^{-1} (S^{-n}R_1S^{n})^{-1} B (S^{-n}R_1 S^{n})A$$ The equation above represents the permutations a one-rotor Enigma machine would act on input, where $n$ is incremented once per letter modulo 26. In group theory\footnote{I think this is right; I haven't formally studied group theory and am working off of my first impressions from Wikipedia.} the closed operation $A^{-1}(\dots)A$ represents a \emph{congugacy} where the plugboard's involution doesn't affect the cycle length of the permutation it conjugates, i.e. $P^m=A^{-1}R^mA$. Therefore Rejewski concludes that the cycle lengths are consistent across all plugboard configurations, significantly reducing the number of combinations. After documenting the cycles, one can simply treat this iteration of the Enigma machine as a substitution cipher, to my knowledge.
+    \end{answer}
+    \begin{remark}
+        I'd be curious to know how other students are rigorously outlining this answer; I may be reading into this question too much or I missed the lecture on congugacy. I remember this idea being briefly outlined in the introductory Linear Algebra course via matrix similarity, but I don't know if the average student would make the connection or be able to say much more than "because that's how it is with matrices" which is really just a case within non-abelian groups. The intuitive answer is too obvious and the rigorous answer too rigorous for this text, in my humble opinion. Ignore this if it was explained explicitly in class; I need to be present more!
+    \end{remark}
+%\end{problemgroup}
+\vspace{5pt}
+%\begin{problemgroup}
+    \begin{problem}
+        Consider the Enigma machine with a certain initial setting of the rotors and plugboard. With this initial setting, let $P_0$ be the permutation the machine applies to the first letter of the plaintext, and let $P_3$ be the permutation that it applies to the fourth letter of the plaintext. Recall the following two facts about the permutations $P_0\text{ and }P_3$:
+        \begin{enumerate}[label=(\roman*)]
+            \item $P_0^{-1}=P_0 \text{ and }P_3^{-1}=P_3$;
+            \item $P_0$ does not send any letter to itself, and neither does $P_3$.
+        \end{enumerate}
+        These facts will be useful in this problem. \par We have seen how cryptanalysts were able to crack Enigma by considering the lengths of the cycles of the permutation $P_3P_0^{-1}$. Let $y_1,y_2,\dots,y_m$ be a cycle of this permutation. That is, the $y_i$'s are $m$ distinct letters of the alphabet, and $P_3P_0^{-1}y_1=y_2,P_3P_0^{-1}y_2=y_3,\dots,P_3P_0^{-1}y_m=y_1$.
+        \begin{enumerate}
+            \item Show that $P_0y_m,P_0y_{m-1},\dots,P_0y_1$ is also a cycle of $P_3P_0^{-1}$.
+            \item Show that the cycle defined in part (a) consists entirely of letters that do not appear in the original cycle $y_1,y_2,\dots,y_m$. It follows that the cycle lengths always come in matching pairs.
+        \end{enumerate}
+    \end{problem}
+    \begin{answer}
+        Blah blah blah heres my answer...
+    \end{answer}
+%\end{problemgroup}
+
+\subsection{A Review of Modular Arithmetic and $\mathbb{Z}_n$}
+
+%\begin{problemgroup}
+    \setcounter{problem}{0}
+    \begin{problem}
+        Write out the addition and multiplication tables for $\mathbb{Z}_3$, $\mathbb{Z}_4$, and $\mathbb{Z}_7$.
+    \end{problem}
+    \begin{answer}
+        % Addition
+        First, the addition tables ($\mathbb{Z}_n^+$).
+        \begin{center}
+            % Z3
+            \begin{tabular}{c|ccc}
+                $\mathbb{Z}_3^{+}$ & 0 & 1 & 2 \\
+                \hline
+                0 & 0 & 1 & 2 \\
+                1 & 1 & 2 & 0 \\
+                2 & 2 & 0 & 1
+            \end{tabular}
+            \hspace{5pt}
+            % Z4
+            \begin{tabular}{c|cccc}
+                $\mathbb{Z}_4^{+}$ & 0 & 1 & 2 & 3 \\
+                \hline
+                0 & 0 & 1 & 2 & 3 \\
+                1 & 1 & 2 & 3 & 0 \\
+                2 & 2 & 3 & 0 & 1 \\ 
+                3 & 3 & 0 & 1 & 2
+            \end{tabular}
+            \hspace{5pt}
+            % Z7
+            \begin{tabular}{c|ccccccc}
+                $\mathbb{Z}_7^{+}$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+                \hline
+                0 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+                1 & 1 & 2 & 3 & 4 & 5 & 6 & 0 \\
+                2 & 2 & 3 & 4 & 5 & 6 & 0 & 1 \\ 
+                3 & 3 & 4 & 5 & 6 & 0 & 1 & 2 \\
+                4 & 4 & 5 & 6 & 0 & 1 & 2 & 3 \\
+                5 & 5 & 6 & 0 & 1 & 2 & 3 & 4 \\
+                6 & 6 & 0 & 1 & 2 & 3 & 4 & 5
+            \end{tabular}
+        \end{center}
+        % Multiplicaton
+        Next, the multiplication tables ($\mathbb{Z}_n^\times$).
+        \begin{center}
+            % Z3
+            \begin{tabular}{c|ccc}
+                $\mathbb{Z}_3^{\times}$ & 0 & 1 & 2  \\
+                \hline
+                0 & 0 & 0 & 0 \\
+                1 & 0 & 1 & 2 \\
+                2 & 0 & 2 & 1
+            \end{tabular}
+            \hspace{5pt}
+            % Z4
+            \begin{tabular}{c|cccc}
+                $\mathbb{Z}_4^{\times}$ & 0 & 1 & 2 & 3 \\
+                \hline
+                0 & 0 & 0 & 0 & 0 \\
+                1 & 0 & 1 & 2 & 3 \\
+                2 & 0 & 2 & 0 & 2 \\ 
+                3 & 0 & 3 & 2 & 1
+            \end{tabular}
+            \hspace{5pt}
+            % Z7
+            \begin{tabular}{c|ccccccc}
+                $\mathbb{Z}_7^{\times}$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+                \hline
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                1 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+                2 & 0 & 2 & 4 & 6 & 1 & 3 & 5 \\ 
+                3 & 0 & 3 & 6 & 2 & 5 & 1 & 4 \\
+                4 & 0 & 4 & 1 & 5 & 2 & 6 & 3 \\
+                5 & 0 & 5 & 3 & 1 & 6 & 4 & 2 \\
+                6 & 0 & 6 & 5 & 4 & 3 & 2 & 1 
+            \end{tabular}
+        \end{center}
+    \end{answer}
+%\end{problemgroup}
+\vspace{5pt}
+%\begin{problemgroup}
+    \setcounter{problem}{3}
+    \begin{problem}
+        Show that addition and multiplication modulo $n$ are well defined. In other words, show that if $a\equiv b\pmod{n}$ and $c\equiv d \pmod{n}$, then $a+c\equiv b+d\pmod{n}$ and $ac\equiv bd\pmod{n}$.
+    \end{problem}
+    \begin{answer}
+        In order to show that the addition and multiplication operations endowed to the $\mathbb{Z}_n$ ring are well defined, we need to show that both $(\mathbb{Z},+)\text{ and }(\mathbb{Z}_n,\cdot)$ used in a mapping won't produce two different, valid results in the range, i.e., for $f\ :\ a\mapsto b$ we need a unique value $b\in\mathbb{Z}_n$ given $a\in\mathbb{Z}_n$. \par To start, we can rewrite the statements $a\equiv b\pmod{n}$ as $a=b+in$ and $c\equiv d\pmod{n}$ as $c=d+jn$ for some $i,j,n\in\mathbb{Z}$. For the addition operation, we can say that 
+        \begin{align*}
+            a + c = (b + in) + (d +jn) &\implies a+c = b+d + n(i+j) \\
+            &\implies a+c=b+d\pmod{n},
+        \end{align*}
+        a unique element in $\mathbb{Z}_n$. For the multiplication operation, we can say 
+        \begin{align*}    
+        a\cdot c = (b + in)\cdot(d+jn) &\implies bd + b(jn) + d(in) + (in)(jn) \\
+        &\implies a \cdot c = b\cdot d + n(bj+di+ijn) \\
+        &\implies a \cdot c = b \cdot d \pmod{n}
+        \end{align*}
+        which is a unique element in $\mathbb{Z}_n$. Thus, both addition and multiplication are well defined binary operations in $\mathbb{Z}_n$ meaning their results do not depend on the choice of representatives in each equivalence class.
+    \end{answer}
+%\end{problemgroup}
+
+\section*{Matrix Practice}
+Consider the matrix \[
+    M = \begin{pmatrix}
+        2 & 3 & 9 \\
+        3 & -1 & 2 \\
+        4 & -4 & 7
+    \end{pmatrix}.
+\]
+Calculate each of the matrix products below and use words to describe the product. For example, you would write \[
+    \begin{pmatrix}
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}
+    M = \begin{pmatrix}
+        3 & -1 & 2 \\
+        2 & 3 & 9 \\
+        4 & -4 & 7
+    \end{pmatrix}
+\] and say: "multiplication on the left by $\begin{pmatrix}
+    0 & 1 & 0 \\
+    1 & 0 & 0 \\
+    0 & 0 & 1
+\end{pmatrix}$ switches the first two rows of $M$."
+
+%\begin{problemgroup}
+    \setcounter{problem}{0}
+    \begin{problem} $
+        \begin{pmatrix}
+            0 & 1 & 0 \\
+            1 & 0 & 0 \\
+            0 & 0 & 1
+        \end{pmatrix} M
+        $
+    \end{problem}
+    \begin{answer}
+    \end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+    \begin{problem} $ M
+        \begin{pmatrix}
+            0 & 1 & 0 \\
+            1 & 0 & 0 \\
+            0 & 0 & 1
+        \end{pmatrix}
+        $
+    \end{problem}
+    \begin{answer}
+        
+    \end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+    \begin{problem} $
+        \begin{pmatrix}
+            0 & 0 & 1 \\
+            0 & 1 & 0 \\
+            1 & 0 & 0
+        \end{pmatrix} M
+        $
+    \end{problem}
+    \begin{answer}
+
+    \end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+    \begin{problem} $ M
+        \begin{pmatrix}
+            0 & 0 & 1 \\
+            0 & 1 & 0 \\
+            1 & 0 & 0
+        \end{pmatrix}
+        $
+    \end{problem}
+    \begin{answer}
+        
+    \end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+    \begin{problem} $
+        \begin{pmatrix}
+            2 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 1
+        \end{pmatrix} M
+        $
+    \end{problem}
+    \begin{answer}
+        
+    \end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+    \begin{problem} $ M
+        \begin{pmatrix}
+            2 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 1
+        \end{pmatrix}
+        $
+    \end{problem}
+    \begin{answer}
+        
+    \end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+    \begin{problem} $
+        \begin{pmatrix}
+            1 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 3
+        \end{pmatrix} M
+        $
+    \end{problem}
+    \begin{answer}
+        
+    \end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem} $ M
+    \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & 3
+    \end{pmatrix}
+    $
+\end{problem}
+\begin{answer}
+    
+\end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem} $
+    \begin{pmatrix}
+        1 & 1 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & 1
+    \end{pmatrix} M
+    $
+\end{problem}
+\begin{answer}
+    
+\end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem} $ M
+    \begin{pmatrix}
+        1 & 1 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}
+    $
+\end{problem}
+\begin{answer}
+    
+\end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem} $
+    \begin{pmatrix}
+        0 & 1 & 0 \\
+        0 & 0 & 1 \\
+        1 & 0 & 0
+    \end{pmatrix} M
+    $
+\end{problem}
+\begin{answer}
+    
+\end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem} $ M
+    \begin{pmatrix}
+        0 & 1 & 0 \\
+        0 & 0 & 1 \\
+        1 & 0 & 0
+    \end{pmatrix}
+    $
+\end{problem}
+\begin{answer}
+    
+\end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem} $
+    \begin{pmatrix}
+        0 & 0 & 1 \\
+        1 & 0 & 0 \\
+        0 & 1 & 0
+    \end{pmatrix} M
+    $
+\end{problem}
+\begin{answer}
+    
+\end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem} $ M
+    \begin{pmatrix}
+        0 & 0 & 1 \\
+        1 & 0 & 0 \\
+        0 & 1 & 0
+    \end{pmatrix}
+    $
+\end{problem}
+\begin{answer}
+    
+\end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem} $ 
+    \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & 0
+    \end{pmatrix}
+    M
+    \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}
+    $
+\end{problem}
+\begin{answer}
+    
+\end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem} $ 
+    \begin{pmatrix}
+        0 & 0 & 1 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0
+    \end{pmatrix}
+    M
+    \begin{pmatrix}
+        0 & 0 & 1 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0
+    \end{pmatrix}
+    $
+\end{problem}
+\begin{answer}
+    
+\end{answer}
+%\end{problemgroup}
+
+
+\iffalse
+% \maketitle
+\section{Intro to LaTeX}
+Hi there! Here is a brief introduction to LaTeX. It's a great system for creating beautifully typeset scientific documents. The main difference between LaTeX and your standard word processing program, is that you write code that tells LaTeX what you want it to display and the program creates handles all the little things that make your math look great.
+
+Lets start with some basics. You can type text normally but when you want to type some math start and end your expression with a \$. For example if I type the Pythagorean Theorem, as long as I surround my equation with dollar signs I get $a^2 +b^2 = c^2$. If I want to emphasize an equation simply put TWO dollar signs around the mathematics. For example a similar expression with two dollar signs around it looks like so: $$x_1^n + x_2^n = x_3^n.$$ (check out the code to see how to generate subscripts!)
+
+In LaTeX we use the curly braces, \{ \}, to group things. If we want to raise $e$ to the $42$nd power and we just type it with no grouping we get $e^42$ which is not what we want. Surrounding the $42$ with curly braces gives $e^{42}$.
+
+The really really really great thing about latex is the HUGE library of mathematical symbols, every symbol starts with a $\backslash$, so if I want a nice pi, I just type $\backslash$pi in math mode like so: $\pi$. Want an integral? Try $\backslash$int, want a fraction? Try $\backslash$frac\{a\}\{b\} (this gives $\frac{a}{b}$) Here is a more complicated example:
+$$
+\int_a^b f \left(\frac{x}{2} \right) \ dx =2\left( F\left(\frac{b}{2} \right) - F\left(\frac{a}{2}\right) \right)
+$$
+(those nice sized parenthesis come from using the $\backslash$left( and $\backslash$right) commands). If you are wondering what the latex command for a symbol is, just try and guess it. If that doesn't work, google it!
+
+There are a few little tricks to making your math look nice, one is the align environment which lets you type multiple lines of aligned mathematical expressions. For instance:
+\begin{align*}
+(x^2+y^2)(z^2+w^2) & = (xz)^2 + (yz)^2 + (xw)^2 + (yw)^2 \\
+& =  (xz)^2 + 2wxyz + (yw)^2 + (yz)^2 - 2 wxyz + (xw)^2 \\
+&= (xz+yw)^2 + (yz-xw)^2
+\end{align*}
+here the $\backslash\backslash$ is a line break and the $\&$ is an alignment character. 
+\section{Sample Proofs}
+\begin{problem} $1^3+2^3+\ldots +n^3 = \left[ \frac{n(n+1)}{2}\right]^2$  for all natural numbers. 
+
+\end{problem}
+ 
+\begin{proof}
+We proceed by induction. When $n=1$ we have 
+$$
+1^3 + \ldots + n^3 = 1^3 =1
+$$
+and
+$$
+\left[ \frac{n(n+1)}{2}\right]^2=\left[ \frac{1(1+1)}{2}\right]^2 = 1^2 =1.
+$$
+Thus the equation holds when $n=1$.
+
+Now assume the equation holds for some $n \in \mathbb N$. Then by our assumption we have
+\begin{align*}
+1^3 + \ldots + n^3 + (n+1)^3& =   \left[ \frac{n(n+1)}{2}\right]^2 + (n+1)^3 = (n+1)^2\left( \frac{n^2}{4} + (n+1)\right) \\
+&=(n+1)^2\left( \frac{n^2+4n+4}{4} \right) = (n+1)^2\frac{(n+2)^2}{4}  \\ &=  \left[ \frac{(n+1)(n+2)}{2}\right]^2.
+\end{align*}
+Therefore, by induction, the equation holds for all $n\in \mathbb N$.
+\end{proof}
+
+\begin{problem} Prove $A \subseteq B \Rightarrow A \cap C \cont B \cap C$
+\end{problem}
+\begin{proof} Assume $A \cont B $ and let $x\in A \cap C$. If $x \in  A \cap C$, then $x\in A$ and $x \in C$. As $x\in A$, by assumption we have that $x \in B$. Thus $x \in B$ and $x \in C$, giving $x\in B \cap C$. Therefore if $A \subseteq B $, then $A \cap C \cont B \cap C$.
+\end{proof}
+
+% THE DOCUMENT IS ESSENTIALLY DONE AT THIS POINT, NO NEED TO EDIT ANYTHING BELOW THIS______________________________________________________________________________________________
+ 
+\fi
+\end{document}
