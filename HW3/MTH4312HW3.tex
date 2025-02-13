@@ -74,7 +74,7 @@ citecolor=blue, urlcolor=blue]{hyperref}
         Intuitively, the cycle lengths won't be affected by any setting of the plugboard as the plugboard statically shuffles the characters the rotor-reflector assembly receives and provides. The problem can be rigorously outlined as it was by Rejewski using the following equation, where $A$ represents the involution of the plugboard ($A=A^{-1}$), $S^n$ represents the effect of rotating $n$ times, $R_i$ represents the $i$-th rotor, and $B$ represents the reflector. $$A^{-1} (S^{-n}R_1S^{n})^{-1} B (S^{-n}R_1 S^{n})A$$ The equation above represents the permutations a one-rotor Enigma machine would act on input, where $n$ is incremented once per letter modulo 26. In group theory\footnote{I think this is right; I haven't formally studied group theory and am working off of my first impressions from Wikipedia.} the closed operation $A^{-1}(\dots)A$ represents a \emph{congugacy} where the plugboard's involution doesn't affect the cycle length of the permutation it conjugates, i.e. $P^m=A^{-1}R^mA$. Therefore Rejewski concludes that the cycle lengths are consistent across all plugboard configurations, significantly reducing the number of combinations. After documenting the cycles, one can simply treat this iteration of the Enigma machine as a substitution cipher, to my knowledge.
     \end{answer}
     \begin{remark}
-        I'd be curious to know how other students are rigorously outlining this answer; I may be reading into this question too much or I missed the lecture on congugacy. I remember this idea being briefly outlined in the introductory Linear Algebra course via matrix similarity, but I don't know if the average student would make the connection or be able to say much more than "because that's how it is with matrices" which is really just a case within non-abelian groups. The intuitive answer is too obvious and the rigorous answer too rigorous for this text, in my humble opinion. Ignore this if it was explained explicitly in class; I need to be present more!
+        I'd be curious to know how other students are rigorously outlining this answer; I may be reading into this question too much or I missed the lecture on congugacy. I remember this idea being briefly outlined in the introductory Linear Algebra course via matrix similarity, but I don't know if the average student would make the connection or be able to say much more than "because that's how it is with matrices" which is really just a case within non-abelian groups. The intuitive answer is too obvious and the rigorous answer too rigorous for this text, in my humble opinion. Ignore this if it was explained explicitly in class.
     \end{remark}
 %\end{problemgroup}
 \vspace{5pt}
@@ -92,7 +92,14 @@ citecolor=blue, urlcolor=blue]{hyperref}
         \end{enumerate}
     \end{problem}
     \begin{answer}
-        Blah blah blah heres my answer...
+        Tackling the first subproblem, we will show that applying the permutation $P_3P_0^{-1}$ to a letter $y_i$ sends it backwards (i.e. lowers the index) in the cycle to $y_{i-1}$ given $i$ modulo $m$. Suppose we have a permutation acting on a cycle element such that $P_3P_0^{-1}(P_0y_i)$. We can say that, using the $y_i= P_3P_0^{-1}y_{i-1}$ definition from the problem statement and knowing $P_0$ and $P_3$ are involutions, that
+        \begin{align*}
+            P_3P_0^{-1}(P_0y_i) &= P_3P_0^{-1}(P_0P_3P_0^{-1}y_{i-1}) \\
+            &= P_3(P_0^{-1}P_0)P_3P_0^{-1}y_{i-1} \\
+            &= (P_3P_3)P_0^{-1}y_{i-1} \\
+            &= P_0^{-1}y_{i-1} = P_0y_{i-1}
+        \end{align*}
+        and thus $P_3P_0^{-1}$ sends $P_0y_i$ to $P_0y_{i-1}$ in a cyclic fashion $i\pmod{m}$. \par For the second subproblem, lets assume that there is overlap between the plaintext and the ciphertext sets such that $y_i=P_0y_j$. This implies that $y_j=P_0y_i$ (as $P_0$ is an involution) and thus the two letters are paired. However this would suggest that $P_0$ can send a letter to another letter between sets and that one doesn't need $P_3P_0^{-1}$ to create the second set, which is established as false by the problem statement. Thus the sets must be disjoint and the letters are paired.
     \end{answer}
 %\end{problemgroup}
 
@@ -199,253 +206,467 @@ citecolor=blue, urlcolor=blue]{hyperref}
 %\end{problemgroup}
 
 \section*{Matrix Practice}
-Consider the matrix \[
-    M = \begin{pmatrix}
-        2 & 3 & 9 \\
-        3 & -1 & 2 \\
-        4 & -4 & 7
-    \end{pmatrix}.
+
+We are given $
+M = \begin{pmatrix}
+2 & 3 & 9 \\
+3 & -1 & 2 \\
+4 & -4 & 7
+\end{pmatrix}$.
+Below, each product is computed and explained.
+
+%-------------------------------------------------------
+\setcounter{problem}{0}
+\begin{problem}
+$
+\begin{pmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{pmatrix} M
+$
+\end{problem}
+\begin{answer}
+We have
+\[
+\begin{pmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{pmatrix} M
+=
+\begin{pmatrix}
+3 & -1 & 2 \\
+2 & 3 & 9 \\
+4 & -4 & 7
+\end{pmatrix}.
 \]
-Calculate each of the matrix products below and use words to describe the product. For example, you would write \[
-    \begin{pmatrix}
-        0 & 1 & 0 \\
-        1 & 0 & 0 \\
-        0 & 0 & 1
-    \end{pmatrix}
-    M = \begin{pmatrix}
-        3 & -1 & 2 \\
-        2 & 3 & 9 \\
-        4 & -4 & 7
-    \end{pmatrix}
-\] and say: "multiplication on the left by $\begin{pmatrix}
-    0 & 1 & 0 \\
-    1 & 0 & 0 \\
-    0 & 0 & 1
-\end{pmatrix}$ switches the first two rows of $M$."
+Multiplying on the left by this permutation matrix swaps the first two rows of \(M\).
+\end{answer}
 
-%\begin{problemgroup}
-    \setcounter{problem}{0}
-    \begin{problem} $
-        \begin{pmatrix}
-            0 & 1 & 0 \\
-            1 & 0 & 0 \\
-            0 & 0 & 1
-        \end{pmatrix} M
-        $
-    \end{problem}
-    \begin{answer}
-    \end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-    \begin{problem} $ M
-        \begin{pmatrix}
-            0 & 1 & 0 \\
-            1 & 0 & 0 \\
-            0 & 0 & 1
-        \end{pmatrix}
-        $
-    \end{problem}
-    \begin{answer}
-        
-    \end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-    \begin{problem} $
-        \begin{pmatrix}
-            0 & 0 & 1 \\
-            0 & 1 & 0 \\
-            1 & 0 & 0
-        \end{pmatrix} M
-        $
-    \end{problem}
-    \begin{answer}
+%-------------------------------------------------------
+\begin{problem}
+$
+M
+\begin{pmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+$
+\end{problem}
+\begin{answer}
+Right multiplication by this matrix swaps the first and second columns of \(M\). In particular, since the first column of the product becomes the second column of \(M\) and vice versa, we obtain
+\[
+M \begin{pmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+3 & 2 & 9 \\
+-1 & 3 & 2 \\
+-4 & 4 & 7
+\end{pmatrix}.
+\]
+\end{answer}
 
-    \end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-    \begin{problem} $ M
-        \begin{pmatrix}
-            0 & 0 & 1 \\
-            0 & 1 & 0 \\
-            1 & 0 & 0
-        \end{pmatrix}
-        $
-    \end{problem}
-    \begin{answer}
-        
-    \end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-    \begin{problem} $
-        \begin{pmatrix}
-            2 & 0 & 0 \\
-            0 & 1 & 0 \\
-            0 & 0 & 1
-        \end{pmatrix} M
-        $
-    \end{problem}
-    \begin{answer}
-        
-    \end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-    \begin{problem} $ M
-        \begin{pmatrix}
-            2 & 0 & 0 \\
-            0 & 1 & 0 \\
-            0 & 0 & 1
-        \end{pmatrix}
-        $
-    \end{problem}
-    \begin{answer}
-        
-    \end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-    \begin{problem} $
-        \begin{pmatrix}
-            1 & 0 & 0 \\
-            0 & 1 & 0 \\
-            0 & 0 & 3
-        \end{pmatrix} M
-        $
-    \end{problem}
-    \begin{answer}
-        
-    \end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-\begin{problem} $ M
-    \begin{pmatrix}
-        1 & 0 & 0 \\
-        0 & 1 & 0 \\
-        0 & 0 & 3
-    \end{pmatrix}
-    $
+%-------------------------------------------------------
+\begin{problem}
+$
+\begin{pmatrix}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0
+\end{pmatrix} M
+$
 \end{problem}
 \begin{answer}
-    
+This left multiplication rearranges the rows of \(M\): the first row becomes the third row of \(M\), the second row remains unchanged, and the third row becomes the first row. Thus,
+\[
+\begin{pmatrix}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0
+\end{pmatrix} M
+=
+\begin{pmatrix}
+4 & -4 & 7 \\
+3 & -1 & 2 \\
+2 & 3 & 9
+\end{pmatrix}.
+\]
 \end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-\begin{problem} $
-    \begin{pmatrix}
-        1 & 1 & 0 \\
-        0 & 1 & 0 \\
-        0 & 0 & 1
-    \end{pmatrix} M
-    $
-\end{problem}
-\begin{answer}
-    
-\end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-\begin{problem} $ M
-    \begin{pmatrix}
-        1 & 1 & 0 \\
-        0 & 1 & 0 \\
-        0 & 0 & 1
-    \end{pmatrix}
-    $
-\end{problem}
-\begin{answer}
-    
-\end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-\begin{problem} $
-    \begin{pmatrix}
-        0 & 1 & 0 \\
-        0 & 0 & 1 \\
-        1 & 0 & 0
-    \end{pmatrix} M
-    $
-\end{problem}
-\begin{answer}
-    
-\end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-\begin{problem} $ M
-    \begin{pmatrix}
-        0 & 1 & 0 \\
-        0 & 0 & 1 \\
-        1 & 0 & 0
-    \end{pmatrix}
-    $
-\end{problem}
-\begin{answer}
-    
-\end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-\begin{problem} $
-    \begin{pmatrix}
-        0 & 0 & 1 \\
-        1 & 0 & 0 \\
-        0 & 1 & 0
-    \end{pmatrix} M
-    $
-\end{problem}
-\begin{answer}
-    
-\end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-\begin{problem} $ M
-    \begin{pmatrix}
-        0 & 0 & 1 \\
-        1 & 0 & 0 \\
-        0 & 1 & 0
-    \end{pmatrix}
-    $
-\end{problem}
-\begin{answer}
-    
-\end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-\begin{problem} $ 
-    \begin{pmatrix}
-        0 & 0 & 0 \\
-        0 & 1 & 0 \\
-        0 & 0 & 0
-    \end{pmatrix}
-    M
-    \begin{pmatrix}
-        0 & 0 & 0 \\
-        0 & 0 & 0 \\
-        0 & 0 & 1
-    \end{pmatrix}
-    $
-\end{problem}
-\begin{answer}
-    
-\end{answer}
-%\end{problemgroup}
-%\begin{problemgroup}
-\begin{problem} $ 
-    \begin{pmatrix}
-        0 & 0 & 1 \\
-        0 & 0 & 0 \\
-        0 & 0 & 0
-    \end{pmatrix}
-    M
-    \begin{pmatrix}
-        0 & 0 & 1 \\
-        0 & 0 & 0 \\
-        0 & 0 & 0
-    \end{pmatrix}
-    $
-\end{problem}
-\begin{answer}
-    
-\end{answer}
-%\end{problemgroup}
 
+%-------------------------------------------------------
+\begin{problem}
+$
+M
+\begin{pmatrix}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0
+\end{pmatrix}
+$
+\end{problem}
+\begin{answer}
+Right multiplication by this matrix permutes the columns of \(M\): the first column of the product comes from the third column of \(M\), the second from the second column, and the third from the first column. Therefore,
+\[
+M \begin{pmatrix}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+9 & 3 & 2 \\
+2 & -1 & 3 \\
+7 & -4 & 4
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+\begin{pmatrix}
+2 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix} M
+$
+\end{problem}
+\begin{answer}
+Left multiplication by a diagonal matrix multiplies each row by the corresponding diagonal entry. Here, the first row is multiplied by 2 while the other rows remain unchanged:
+\[
+\begin{pmatrix}
+2 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix} M
+=
+\begin{pmatrix}
+4 & 6 & 18 \\
+3 & -1 & 2 \\
+4 & -4 & 7
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+M
+\begin{pmatrix}
+2 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+$
+\end{problem}
+\begin{answer}
+Right multiplication by this diagonal matrix multiplies each column by the corresponding diagonal entry. Thus, the first column of \(M\) is multiplied by 2, yielding
+\[
+M \begin{pmatrix}
+2 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+4 & 3 & 9 \\
+6 & -1 & 2 \\
+8 & -4 & 7
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 3
+\end{pmatrix} M
+$
+\end{problem}
+\begin{answer}
+Here, only the third row of \(M\) is multiplied by 3:
+\[
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 3
+\end{pmatrix} M
+=
+\begin{pmatrix}
+2 & 3 & 9 \\
+3 & -1 & 2 \\
+12 & -12 & 21
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+M
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 3
+\end{pmatrix}
+$
+\end{problem}
+\begin{answer}
+Right multiplication by this matrix multiplies the third column of \(M\) by 3:
+\[
+M \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 3
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 & 3 & 27 \\
+3 & -1 & 6 \\
+4 & -4 & 21
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+\begin{pmatrix}
+1 & 1 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix} M
+$
+\end{problem}
+\begin{answer}
+Left multiplication by this matrix adds the second row of \(M\) to its first row. Explicitly, the new first row becomes
+\[
+(1)(\text{row 1})+(1)(\text{row 2}) = (2+3,\; 3+(-1),\; 9+2)=(5,2,11).
+\]
+Thus,
+\[
+\begin{pmatrix}
+1 & 1 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix} M
+=
+\begin{pmatrix}
+5 & 2 & 11 \\
+3 & -1 & 2 \\
+4 & -4 & 7
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+M
+\begin{pmatrix}
+1 & 1 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+$
+\end{problem}
+\begin{answer}
+Right multiplication by this matrix adds the first column of \(M\) to its second column. In other words, the new second column is
+\[
+(\text{column 1})+(\text{column 2}) = \begin{pmatrix} 2+3 \\ 3+(-1) \\ 4+(-4) \end{pmatrix}=\begin{pmatrix} 5 \\ 2 \\ 0 \end{pmatrix}.
+\]
+Thus,
+\[
+M \begin{pmatrix}
+1 & 1 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 & 5 & 9 \\
+3 & 2 & 2 \\
+4 & 0 & 7
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+\begin{pmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0
+\end{pmatrix} M
+$
+\end{problem}
+\begin{answer}
+The left multiplication by this permutation matrix cycles the rows: the first row becomes the second row of \(M\), the second row becomes the third row, and the third row becomes the first row. Hence,
+\[
+\begin{pmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0
+\end{pmatrix} M
+=
+\begin{pmatrix}
+3 & -1 & 2 \\
+4 & -4 & 7 \\
+2 & 3 & 9
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+M
+\begin{pmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0
+\end{pmatrix}
+$
+\end{problem}
+\begin{answer}
+Right multiplication by this matrix permutes the columns of \(M\). The new first column is the original third column, the new second is the original first, and the new third is the original second. Thus,
+\[
+M \begin{pmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+9 & 2 & 3 \\
+2 & 3 & -1 \\
+7 & 4 & -4
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+\begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{pmatrix} M
+$
+\end{problem}
+\begin{answer}
+Here, the left multiplication rearranges the rows so that the first row of the product is the third row of \(M\), the second row is the first row of \(M\), and the third row is the second row. That is,
+\[
+\begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{pmatrix} M
+=
+\begin{pmatrix}
+4 & -4 & 7 \\
+2 & 3 & 9 \\
+3 & -1 & 2
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+M
+\begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{pmatrix}
+$
+\end{problem}
+\begin{answer}
+Right multiplication by this matrix permutes the columns of \(M\): the new first column is the original second column, the new second is the original third, and the new third is the original first. Thus,
+\[
+M \begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+3 & 9 & 2 \\
+-1 & 2 & 3 \\
+-4 & 7 & 4
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 0
+\end{pmatrix}
+M
+\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+$
+\end{problem}
+\begin{answer}
+The left matrix selects only the second row of \(M\) and zeros out the others. The right matrix selects only the third column. Since the \((2,3)\) entry of \(M\) is 2, we obtain
+\[
+\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & 2 \\
+0 & 0 & 0
+\end{pmatrix}.
+\]
+\end{answer}
+
+%-------------------------------------------------------
+\begin{problem}
+$
+\begin{pmatrix}
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{pmatrix}
+M
+\begin{pmatrix}
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{pmatrix}
+$
+\end{problem}
+\begin{answer}
+The left matrix picks out the third row of \(M\) and places it in the first row, while the right matrix selects only the first column of the result. Since the \((3,1)\) entry of \(M\) is 4, the final product is
+\[
+\begin{pmatrix}
+0 & 0 & 4 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{pmatrix}.
+\]
+\end{answer}
 
 \iffalse
+
+
 % \maketitle
 \section{Intro to LaTeX}
 Hi there! Here is a brief introduction to LaTeX. It's a great system for creating beautifully typeset scientific documents. The main difference between LaTeX and your standard word processing program, is that you write code that tells LaTeX what you want it to display and the program creates handles all the little things that make your math look great.

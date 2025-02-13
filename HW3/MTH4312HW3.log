@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.28)  12 FEB 2025 18:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.28)  13 FEB 2025 12:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -902,22 +902,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 99.
+(hyperref)                removing `math shift' on input line 106.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 99.
+(hyperref)                removing `subscript' on input line 106.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 99.
+(hyperref)                removing `math shift' on input line 106.
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{problem.4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.183         S
-               how that addition and multiplication modulo $n$ are well defi...
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -927,16 +922,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [2]
-pdfTeX warning (ext4): destination with the same identifier (name{problem.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.228     \begin{problem} $
-                           
 pdfTeX warning (ext4): destination with the same identifier (name{problem.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.266     \begin{problem} $
-                            M
+l.190         S
+               how that addition and multiplication modulo $n$ are well defi...
+pdfTeX warning (ext4): destination with the same identifier (name{problem.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.221 $
+       
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -946,11 +941,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [3]
+pdfTeX warning (ext4): destination with the same identifier (name{problem.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.304 $
+       
 pdfTeX warning (ext4): destination with the same identifier (name{problem.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.279     \begin{problem} $
-                           
+l.332 $
+       
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -968,7 +968,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[5] (./MTH4312HW3.aux)
+[5]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[6]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[7] (./MTH4312HW3.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
@@ -977,18 +995,18 @@ Package rerunfilecheck Info: File `MTH4312HW3.out' has not changed.
 (rerunfilecheck)             Checksum: F805E0B97E59DB6535BE728D36635AD2;521.
  ) 
 Here is how much of TeX's memory you used:
- 37123 strings out of 474321
- 855140 string characters out of 5740886
- 1387415 words of memory out of 5000000
+ 37125 strings out of 474321
+ 855152 string characters out of 5740886
+ 1384415 words of memory out of 5000000
  59588 multiletter control sequences out of 15000+600000
  568994 words of font info for 75 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 110i,12n,117p,1378b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 110i,12n,117p,1378b,674s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on MTH4312HW3.pdf (5 pages, 157287 bytes).
+Output written on MTH4312HW3.pdf (7 pages, 164235 bytes).
 PDF statistics:
- 140 PDF objects out of 1000 (max. 8388607)
- 105 compressed objects within 2 object streams
- 31 named destinations out of 1000 (max. 500000)
+ 150 PDF objects out of 1000 (max. 8388607)
+ 113 compressed objects within 2 object streams
+ 33 named destinations out of 1000 (max. 500000)
  37 words of extra memory for PDF output out of 10000 (max. 10000000)
 
