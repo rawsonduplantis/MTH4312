@@ -127,7 +127,7 @@ citecolor=blue, urlcolor=blue]{hyperref}
             \end{pmatrix} \mapsto \texttt{VY},\quad\mathbf{y_2} = \begin{pmatrix}
                 6 \\
                 5
-            \end{pmatrix} \mapsto \texttt{GF}.$$ Thus our encrypted message is \texttt{VYGF}. \vspace{11pt} \\  
+            \end{pmatrix} \mapsto \texttt{GF}.$$ Thus our encrypted message is \texttt{VYGF}. \newline
             % PART B
         For part (b), we'll perform the same process as above:
         $$
@@ -198,21 +198,58 @@ citecolor=blue, urlcolor=blue]{hyperref}
         \end{pmatrix}$ for the key matrix. Bob receives the ciphertext \texttt{SMKH} from Alice. What is the plaintext?
     \end{problem}
     \begin{answer}
-        To find the plaintext, we simply need to calculate $K^{-1}$ and apply it to the digram's corresponding vector: $$
-            K^{-1} = \frac{1}{2(6)-1(3)}\begin{pmatrix}
+        To find the plaintext, we simply need to calculate $K^{-1}$ and apply it to the digram's corresponding vector. Knowing that the determinant is $2(6)-1(3)=9$: $$
+            K^{-1} = 9^{-1}\begin{pmatrix}
                 6 & -1 \\
                 -3 & 2
-            \end{pmatrix} = \begin{pmatrix}
-                \nicefrac{2}{3} & \nicefrac{-1}{9} \\
-                \nicefrac{-1}{3} & \nicefrac{2}{9}
-            \end{pmatrix}
+            \end{pmatrix} \equiv 3 \begin{pmatrix}
+                6 & 25 \\
+                23 & 2
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                18 & 23 \\
+                17 & 6
+            \end{pmatrix} \pmod{26}
         $$ Using the mapping $\texttt{SM}\mapsto \begin{pmatrix}
             18 \\
             12
-        \end{pmatrix}$ and $\texttt{KH}\mapsto \begin{pmatrix}
+        \end{pmatrix}=\mathbf{y_1}$ and $\texttt{KH}\mapsto \begin{pmatrix}
             10 \\
             7
-        \end{pmatrix}$
+        \end{pmatrix}=\mathbf{y_2}$ we'll calculate $K^{-1}\mathbf{y_1}$ and $K^{-1}\mathbf{y_2}$: $$
+            K^{-1}\mathbf{y_1} = \begin{pmatrix}
+                18 & 23 \\
+                17 & 6
+            \end{pmatrix}
+            \begin{pmatrix}
+                18 \\
+                12
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                600 \\
+                378
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                2 \\
+                14
+            \end{pmatrix} = \mathbf{x_1}, $$$$ K^{-1}\mathbf{y_2} = 
+            \begin{pmatrix}
+                18 & 23 \\
+                17 & 6
+            \end{pmatrix}
+            \begin{pmatrix}
+                10 \\
+                7
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                341 \\
+                212
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                3 \\
+                4
+            \end{pmatrix} = \mathbf{x_2}
+            .$$ Mapping these vectors back to their digrams, we get the plaintext \texttt{CODE}.
     \end{answer}
 %\end{problemgroup}
 
@@ -226,7 +263,59 @@ citecolor=blue, urlcolor=blue]{hyperref}
         \end{pmatrix}$. You have intercepted the ciphertext \texttt{BYIC}. What is the plaintext?
     \end{problem}
     \begin{answer}
-        Answer here...
+        We can use the same procedure from problem 2 of section 1.4 to crack the code. Knowing that $det(K)=15$, we can determine that $$
+            K^{-1}=15^{-1}\begin{pmatrix}
+                2 & -1 \\
+                -1 & 8
+            \end{pmatrix} = 7
+            \begin{pmatrix}
+                2 & 25 \\
+                25 & 8
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                14 & 19 \\
+                19 & 4
+            \end{pmatrix} \pmod{26}
+        $$ Using the mapping $\texttt{BY}\mapsto \begin{pmatrix}
+            1 \\
+            24
+        \end{pmatrix}=\mathbf{y_1}$ and $\texttt{IC}\mapsto \begin{pmatrix}
+            8 \\
+            2
+        \end{pmatrix}=\mathbf{y_2}$ we'll calculate $K^{-1}\mathbf{y_1}$ and $K^{-1}\mathbf{y_2}$: $$
+            K^{-1}\mathbf{y_1} = \begin{pmatrix}
+                14 & 19 \\
+                19 & 4
+            \end{pmatrix}
+            \begin{pmatrix}
+                1 \\
+                24
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                470 \\
+                115
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                2 \\
+                11
+            \end{pmatrix} = \mathbf{x_1}, $$$$ K^{-1}\mathbf{y_2} = 
+            \begin{pmatrix}
+                14 & 19 \\
+                19 & 4
+            \end{pmatrix}
+            \begin{pmatrix}
+                8 \\
+                2
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                150 \\
+                160
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                20 \\
+                4   
+            \end{pmatrix} = \mathbf{x_2}
+            .$$ Mapping these vectors back to their digrams, we get the plaintext \texttt{CLUE}.
     \end{answer}
 %\end{problemgroup}
 \vspace{5pt}
@@ -235,20 +324,190 @@ citecolor=blue, urlcolor=blue]{hyperref}
         You have intercepted the message $$\texttt{WGTK}$$ and know it has ben encrypted using a Hill cipher. You also happen to know that \texttt{CD} is encrypted as \texttt{RR} and \texttt{JK} is encrypted as \texttt{OV}. What is the plaintext? 
     \end{problem}
     \begin{answer}
-        Answer here...
+        Let's first map these digrams to vectors in $\mathbb{R}^2$ and combine them into a matrix: $$
+            \texttt{CD},\texttt{JK} \mapsto \begin{pmatrix}
+                2 & 9 \\
+                3 & 10
+            \end{pmatrix}; \quad
+            \texttt{RR},\texttt{OV} \mapsto \begin{pmatrix}
+                17 & 14 \\
+                17 & 21
+            \end{pmatrix}.
+        $$ We know that the first matrix is linearly-mapped to the second via a Hill cipher's key matrix: $$
+            \begin{pmatrix}
+                a & b \\
+                c & d
+            \end{pmatrix}
+            \begin{pmatrix}
+                2 & 9 \\
+                3 & 10
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                17 & 14 \\
+                17 & 21
+            \end{pmatrix}.
+        $$ Next, let's calculate the inverse of the plaintext matrix:$$
+            \begin{pmatrix}
+                2 & 9 \\
+                3 & 10
+            \end{pmatrix}^{-1} = (-7)^{-1}
+            \begin{pmatrix}
+                10 & -9 \\
+                -3 & 2
+            \end{pmatrix} \equiv 19
+            \begin{pmatrix}
+                10 & 17 \\
+                23 & 2
+            \end{pmatrix} =
+            \begin{pmatrix}
+                110 & 187 \\
+                253 & 22
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                6 & 5 \\
+                19 & 22
+            \end{pmatrix} \pmod{26}
+        .$$ We can then multiply both sides from the right by the inverse of the plaintext matrix:
+        \begin{align*}
+            \begin{pmatrix}
+                a & b \\
+                c & d
+            \end{pmatrix}
+            \begin{pmatrix}
+                2 & 9 \\
+                3 & 10
+            \end{pmatrix}
+            \begin{pmatrix}
+                6 & 5 \\
+                19 & 22
+            \end{pmatrix} &= 
+            \begin{pmatrix}
+                17 & 14 \\
+                17 & 21
+            \end{pmatrix}
+            \begin{pmatrix}
+                6 & 5 \\
+                19 & 22
+            \end{pmatrix} \\
+            \begin{pmatrix}
+                a & b \\
+                c & d
+            \end{pmatrix}
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix} &=
+            \begin{pmatrix}
+                17 & 14 \\
+                17 & 21
+            \end{pmatrix}
+            \begin{pmatrix}
+                6 & 5 \\
+                19 & 22
+            \end{pmatrix} \\
+            \begin{pmatrix}
+                a & b \\
+                c & d
+            \end{pmatrix} &=
+            \begin{pmatrix}
+                368 & 393 \\
+                501 & 547
+            \end{pmatrix} \\ &\equiv
+            \begin{pmatrix}
+                4 & 3 \\
+                7 & 1
+            \end{pmatrix} \pmod{26}.
+        \end{align*}        
+        This resulting matrix $\begin{pmatrix}
+            4 & 3 \\
+            7 & 1
+        \end{pmatrix}$ is the Hill cipher key. To finally decrypt, we must first invert this key, noting the determinant is $-17\equiv 9\pmod{26}$: $$ K^{-1} =
+            \begin{pmatrix}
+                4 & 3 \\
+                7 & 1
+            \end{pmatrix}^{-1} = 9^{-1}
+            \begin{pmatrix}
+                1 & -3 \\
+                -7 & 4
+            \end{pmatrix} \equiv 3
+            \begin{pmatrix}
+                1 & 23 \\
+                19 & 4
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                3 & 69 \\
+                57 & 12
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                3 & 17 \\
+                5 & 12
+            \end{pmatrix} \pmod{26}.
+        $$ We finally multiply each of our ciphertext digrams by $K^{-1}$ to get our plaintext: $$
+        K^{-1}[\texttt{WG}] = \begin{pmatrix}
+            3 & 17 \\
+            5 & 12
+        \end{pmatrix}
+        \begin{pmatrix}
+            22 \\
+            6
+        \end{pmatrix} = 
+        \begin{pmatrix}
+            312 \\
+            136
+        \end{pmatrix} \equiv
+        \begin{pmatrix}
+            12 \\
+            0
+        \end{pmatrix} = \texttt{MA}, $$$$ K^{-1}[\texttt{TK}] = 
+        \begin{pmatrix}
+            3 & 17 \\
+            5 & 12
+        \end{pmatrix}
+        \begin{pmatrix}
+            19 \\
+            10
+        \end{pmatrix} = 
+        \begin{pmatrix}
+            107 \\
+            130
+        \end{pmatrix} \equiv
+        \begin{pmatrix}
+            19 \\
+            7
+        \end{pmatrix} = \texttt{TH}
+        .$$ Mapping these vectors back to their digrams, we get the plaintext \texttt{MATH}.
+
     \end{answer}
 %\end{problemgroup}
 
 \subsection{Feistel Ciphers and DES}
 \setcounter{problem}{0}
 %\begin{problemgroup}
-    \begin{problem}
-        Consider the fifth $S$-box used in DES. Think of it as a function from $\mathbb{Z}_2^6$ to $\mathbb{Z}_2^4$. Show that this function is not linear.
-    \end{problem}
-    \begin{answer}
-        Answer here...
-    \end{answer}
+\begin{problem}
+    Consider the fifth $S$-box used in DES. Think of it as a function from $\mathbb{Z}_2^6$ to $\mathbb{Z}_2^4$. Show that this function is not linear.
+\end{problem}
+\begin{answer}
+    To show that the function represented by the fifth $S$-box in DES is not linear, we recall a function $f: \mathbb{Z}_2^6 \to \mathbb{Z}_2^4$ is linear if and only if for all inputs $\mathbf{x}, \mathbf{y} \in \mathbb{Z}_2^6$ and for all scalars $a, b \in \mathbb{Z}_2$: $$
+        f(a\mathbf{x} \oplus b\mathbf{y}) = a f(\mathbf{x}) \oplus b f(\mathbf{y}).
+    $$
+    In particular, since we are working over $\mathbb{Z}_2$, we simply require that: $$
+        f(\mathbf{x} \oplus \mathbf{y}) = f(\mathbf{x}) \oplus f(\mathbf{y}) \ \forall \mathbf{x}, \mathbf{y} \in \mathbb{Z}_2^6.
+    $$ We now test this condition for specific inputs using the $S_5$-box lookup table in DES. Consider two simple input values: $$
+        \mathbf{x} = 000000_2, \quad \mathbf{y} = 111111_2.
+    $$
+    We will first compute the sum of their separate $f$ outputs and then we'll compare this result to the $f$ output of their sum. Looking up their corresponding outputs in $\mathbb{Z}$ from the $S_5$-box table: $$
+        S_5(000000_2) = 0010_2, \quad S_5(111111_2) = 0001_2
+    $$
+    which, when added together, results in $0011_2$.
+    If we are to evaluate $S_5$ again with the input $\mathbf{x}\oplus\mathbf{y}$: $$
+        S_5(111111_2) = 0001_2.
+    $$ Since $0011_2 \neq 0001_2$,
+    the function fails the linearity condition, proving that $S_5$ is not a linear function.
+
+    More generally, DES $S$-boxes are specifically designed to be non-linear to provide confusion and resist linear cryptanalysis. If they were linear, DES encryption would be significantly weaker, as is the case with the Hill cipher.
+\end{answer}
 %\end{problemgroup}
+
 \iffalse
 
 
