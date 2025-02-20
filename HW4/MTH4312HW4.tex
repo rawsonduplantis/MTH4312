@@ -1,0 +1,308 @@
+% !TEX root = MTH4312HW4.tex
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,scrextend}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\newcommand{\cont}{\subseteq}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage[mathscr]{euscript}
+\let\euscr\mathscr \let\mathscr\relax% just so we can load this and rsfs
+\usepackage[scr]{rsfso}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{etoolbox}
+\usepackage{tcolorbox}
+\usepackage{mdframed}
+\usepackage{changepage}
+\usepackage{units}
+\usepackage[table]{xcolor}
+\usepackage[colorlinks=true, pdfstartview=FitV, linkcolor=blue,
+citecolor=blue, urlcolor=blue]{hyperref}
+
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand{\ddx}{\frac{d}{dx}}
+\newcommand{\dfdx}{\frac{df}{dx}}
+\newcommand{\ddxp}[1]{\frac{d}{dx}\left( #1 \right)}
+\newcommand{\dydx}{\frac{dy}{dx}}
+\let\ds\displaystyle
+\newcommand{\intx}[1]{\int #1 \, dx}
+\newcommand{\intt}[1]{\int #1 \, dt}
+\newcommand{\defint}[3]{\int_{#1}^{#2} #3 \, dx}
+\newcommand{\imp}{\Rightarrow}
+\newcommand{\un}{\cup}
+\newcommand{\inter}{\cap}
+\newcommand{\ps}{\mathscr{P}}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newenvironment{answer}
+    {\begin{adjustwidth}{0pt}{0pt}}
+    {\end{adjustwidth}}
+
+\newtheorem*{sol}{Solution}
+\newtheorem*{claim}{Claim}
+\newtheorem{problem}{Problem}
+\theoremstyle{remark}  % Style for remarks
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+\setlength{\abovecaptionskip}{0pt} % Reduce space above caption
+% EVERYTHING ABOVE THIS LINE IS JUST PREABLE, NO NEED TO MESS WITH IT.__________________________________________________________________________________________
+%
+
+% 1.4: 1 & 2; 1.5: 1 & 2; 1.6: 4
+
+\lhead{Rawson Duplantis}
+\chead{MTH 4312: Cryptology}
+\rhead{\today}
+\section{Cryptography: An Overview}
+\setcounter{subsection}{3}
+\subsection{The Hill Cipher}
+%\begin{problemgroup}
+    \begin{problem}
+        Complete the following:
+        \begin{enumerate}[label=(\alph*)]
+            \item Use a 26-character Hill cipher to encode the message \texttt{FOUR} using the key matrix $K=\begin{pmatrix}
+                25 & 0 \\
+                2 & 1
+            \end{pmatrix}$.
+            \item Let $\alpha_{1}\alpha_{2}\alpha_{3}\alpha_{4}$ represent your answer from part (a). Now encode the message $\alpha_{1}\alpha_{2}\alpha_{3}\alpha_{4}$ using the same key matrix that you used in part (a).
+            \item There should be something surprising about your answer in part (b). Is that simply a coincidence? Explain.
+        \end{enumerate}
+    \end{problem}
+    \begin{answer}
+        % PART A
+        Let's start with part (a). To encode the message \texttt{FOUR} using the provided Hill cipher, we'll rewrite the phrase into two-letter vectors according to $A\mapsto 0, B\mapsto 1, \dots$, and so on: $$\texttt{FO} \mapsto \begin{pmatrix}
+            5 \\
+            14
+        \end{pmatrix} = \mathbf{x_1},\quad \texttt{UR} \mapsto \begin{pmatrix}
+            20 \\
+            17
+        \end{pmatrix} = \mathbf{x_2}.$$
+        We'll then multiply each as $K\mathbf{x_1},K\mathbf{x_2}$ and reduce to their  representatives modulo 26: $$
+            K\mathbf{x_1} = \begin{pmatrix}
+                25 & 0 \\
+                2 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+                5 \\
+                14
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                125 \\
+                24
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                21 \\
+                24
+            \end{pmatrix} = \mathbf{y_1}, $$$$ K\mathbf{x_2} = 
+            \begin{pmatrix}
+                25 & 0 \\
+                2 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+                20 \\
+                17
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                500 \\
+                57
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                6 \\
+                5
+            \end{pmatrix} = \mathbf{y_2}
+            .$$ 
+        Finally, we can map these vectors back to their corresponding digrams, completing the encryption: $$
+            \mathbf{y_1} = \begin{pmatrix}
+                21 \\
+                24
+            \end{pmatrix} \mapsto \texttt{VY},\quad\mathbf{y_2} = \begin{pmatrix}
+                6 \\
+                5
+            \end{pmatrix} \mapsto \texttt{GF}.$$ Thus our encrypted message is \texttt{VYGF}. \vspace{11pt} \\  
+            % PART B
+        For part (b), we'll perform the same process as above:
+        $$
+            K\mathbf{y_1} = \begin{pmatrix}
+                25 & 0 \\
+                2 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+                21 \\
+                24
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                525 \\
+                66
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                5 \\
+                14
+            \end{pmatrix} = \mathbf{z_1},$$$$ K\mathbf{y_2} = 
+            \begin{pmatrix}
+                25 & 0 \\
+                2 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+                6 \\
+                5
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                150 \\
+                17
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                20 \\
+                17
+            \end{pmatrix} = \mathbf{z_2}
+        .$$$$\mathbf{y_1} = \begin{pmatrix}
+            5 \\
+            14
+        \end{pmatrix} \mapsto \texttt{FO},\quad\mathbf{y_2} = \begin{pmatrix}
+            20 \\
+            17
+        \end{pmatrix} \mapsto \texttt{UR}.$$ As a result, we get the original plaintext \texttt{FOUR}. Looking to part (c), we can see that the linear transformation, $K$, is it's own inverse modulo 26: $$
+            \begin{pmatrix}
+                25 & 0 \\
+                2 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+                25 & 0 \\
+                2 & 1
+            \end{pmatrix} = 
+            \begin{pmatrix}
+                625 & 0 \\
+                52 & 1
+            \end{pmatrix} \equiv
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix} \pmod{26}
+        $$ which confirms that $KK$ will result in the original vector modulo 26.
+    \end{answer}
+%\end{problemgroup}
+\vspace{5pt}
+%\begin{problemgroup}
+    \begin{problem}
+        Alice and Bob agree that they will use a Hill Cipher to send messages to each other. They decide to use $K=\begin{pmatrix}
+            2 & 1 \\
+            3 & 6
+        \end{pmatrix}$ for the key matrix. Bob receives the ciphertext \texttt{SMKH} from Alice. What is the plaintext?
+    \end{problem}
+    \begin{answer}
+        To find the plaintext, we simply need to calculate $K^{-1}$ and apply it to the digram's corresponding vector: $$
+            K^{-1} = \frac{1}{2(6)-1(3)}\begin{pmatrix}
+                6 & -1 \\
+                -3 & 2
+            \end{pmatrix} = \begin{pmatrix}
+                \nicefrac{2}{3} & \nicefrac{-1}{9} \\
+                \nicefrac{-1}{3} & \nicefrac{2}{9}
+            \end{pmatrix}
+        $$ Using the mapping $\texttt{SM}\mapsto \begin{pmatrix}
+            18 \\
+            12
+        \end{pmatrix}$ and $\texttt{KH}\mapsto \begin{pmatrix}
+            10 \\
+            7
+        \end{pmatrix}$
+    \end{answer}
+%\end{problemgroup}
+
+\subsection{Attacks on the Hill Cipher}
+\setcounter{problem}{0}
+%\begin{problemgroup}
+    \begin{problem}
+        You discover\footnote{How convenient!} that the key matrix for a certain Hill cipher is $K=\begin{pmatrix}
+            8 & 1 \\
+            1 & 2
+        \end{pmatrix}$. You have intercepted the ciphertext \texttt{BYIC}. What is the plaintext?
+    \end{problem}
+    \begin{answer}
+        Answer here...
+    \end{answer}
+%\end{problemgroup}
+\vspace{5pt}
+%\begin{problemgroup}
+    \begin{problem}
+        You have intercepted the message $$\texttt{WGTK}$$ and know it has ben encrypted using a Hill cipher. You also happen to know that \texttt{CD} is encrypted as \texttt{RR} and \texttt{JK} is encrypted as \texttt{OV}. What is the plaintext? 
+    \end{problem}
+    \begin{answer}
+        Answer here...
+    \end{answer}
+%\end{problemgroup}
+
+\subsection{Feistel Ciphers and DES}
+\setcounter{problem}{0}
+%\begin{problemgroup}
+    \begin{problem}
+        Consider the fifth $S$-box used in DES. Think of it as a function from $\mathbb{Z}_2^6$ to $\mathbb{Z}_2^4$. Show that this function is not linear.
+    \end{problem}
+    \begin{answer}
+        Answer here...
+    \end{answer}
+%\end{problemgroup}
+\iffalse
+
+
+% \maketitle
+\section{Intro to LaTeX}
+Hi there! Here is a brief introduction to LaTeX. It's a great system for creating beautifully typeset scientific documents. The main difference between LaTeX and your standard word processing program, is that you write code that tells LaTeX what you want it to display and the program creates handles all the little things that make your math look great.
+
+Lets start with some basics. You can type text normally but when you want to type some math start and end your expression with a \$. For example if I type the Pythagorean Theorem, as long as I surround my equation with dollar signs I get $a^2 +b^2 = c^2$. If I want to emphasize an equation simply put TWO dollar signs around the mathematics. For example a similar expression with two dollar signs around it looks like so: $$x_1^n + x_2^n = x_3^n.$$ (check out the code to see how to generate subscripts!)
+
+In LaTeX we use the curly braces, \{ \}, to group things. If we want to raise $e$ to the $42$nd power and we just type it with no grouping we get $e^42$ which is not what we want. Surrounding the $42$ with curly braces gives $e^{42}$.
+
+The really really really great thing about latex is the HUGE library of mathematical symbols, every symbol starts with a $\backslash$, so if I want a nice pi, I just type $\backslash$pi in math mode like so: $\pi$. Want an integral? Try $\backslash$int, want a fraction? Try $\backslash$frac\{a\}\{b\} (this gives $\frac{a}{b}$) Here is a more complicated example:
+$$
+\int_a^b f \left(\frac{x}{2} \right) \ dx =2\left( F\left(\frac{b}{2} \right) - F\left(\frac{a}{2}\right) \right)
+$$
+(those nice sized parenthesis come from using the $\backslash$left( and $\backslash$right) commands). If you are wondering what the latex command for a symbol is, just try and guess it. If that doesn't work, google it!
+
+There are a few little tricks to making your math look nice, one is the align environment which lets you type multiple lines of aligned mathematical expressions. For instance:
+\begin{align*}
+(x^2+y^2)(z^2+w^2) & = (xz)^2 + (yz)^2 + (xw)^2 + (yw)^2 \\
+& =  (xz)^2 + 2wxyz + (yw)^2 + (yz)^2 - 2 wxyz + (xw)^2 \\
+&= (xz+yw)^2 + (yz-xw)^2
+\end{align*}
+here the $\backslash\backslash$ is a line break and the $\&$ is an alignment character. 
+\section{Sample Proofs}
+\begin{problem} $1^3+2^3+\ldots +n^3 = \left[ \frac{n(n+1)}{2}\right]^2$  for all natural numbers. 
+
+\end{problem}
+ 
+\begin{proof}
+We proceed by induction. When $n=1$ we have 
+$$
+1^3 + \ldots + n^3 = 1^3 =1
+$$
+and
+$$
+\left[ \frac{n(n+1)}{2}\right]^2=\left[ \frac{1(1+1)}{2}\right]^2 = 1^2 =1.
+$$
+Thus the equation holds when $n=1$.
+
+Now assume the equation holds for some $n \in \mathbb N$. Then by our assumption we have
+\begin{align*}
+1^3 + \ldots + n^3 + (n+1)^3& =   \left[ \frac{n(n+1)}{2}\right]^2 + (n+1)^3 = (n+1)^2\left( \frac{n^2}{4} + (n+1)\right) \\
+&=(n+1)^2\left( \frac{n^2+4n+4}{4} \right) = (n+1)^2\frac{(n+2)^2}{4}  \\ &=  \left[ \frac{(n+1)(n+2)}{2}\right]^2.
+\end{align*}
+Therefore, by induction, the equation holds for all $n\in \mathbb N$.
+\end{proof}
+
+\begin{problem} Prove $A \subseteq B \Rightarrow A \cap C \cont B \cap C$
+\end{problem}
+\begin{proof} Assume $A \cont B $ and let $x\in A \cap C$. If $x \in  A \cap C$, then $x\in A$ and $x \in C$. As $x\in A$, by assumption we have that $x \in B$. Thus $x \in B$ and $x \in C$, giving $x\in B \cap C$. Therefore if $A \subseteq B $, then $A \cap C \cont B \cap C$.
+\end{proof}
+
+% THE DOCUMENT IS ESSENTIALLY DONE AT THIS POINT, NO NEED TO EDIT ANYTHING BELOW THIS______________________________________________________________________________________________
+ 
+\fi
+\end{document}
