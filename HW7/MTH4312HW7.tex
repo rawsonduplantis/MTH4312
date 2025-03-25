@@ -1,0 +1,153 @@
+% !TEX root = MTH4312HW7.tex
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,scrextend}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\newcommand{\cont}{\subseteq}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage[mathscr]{euscript}
+\let\euscr\mathscr \let\mathscr\relax% just so we can load this and rsfs
+\usepackage[scr]{rsfso}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{etoolbox}
+\usepackage{tcolorbox}
+\usepackage{mdframed}
+\usepackage{changepage}
+\usepackage{units}
+\usepackage[table]{xcolor}
+\usepackage[colorlinks=true, pdfstartview=FitV, linkcolor=blue,
+citecolor=blue, urlcolor=blue]{hyperref}
+
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand{\ddx}{\frac{d}{dx}}
+\newcommand{\dfdx}{\frac{df}{dx}}
+\newcommand{\ddxp}[1]{\frac{d}{dx}\left( #1 \right)}
+\newcommand{\dydx}{\frac{dy}{dx}}
+\let\ds\displaystyle
+\newcommand{\intx}[1]{\int #1 \, dx}
+\newcommand{\intt}[1]{\int #1 \, dt}
+\newcommand{\defint}[3]{\int_{#1}^{#2} #3 \, dx}
+\newcommand{\imp}{\Rightarrow}
+\newcommand{\un}{\cup}
+\newcommand{\inter}{\cap}
+\newcommand{\ps}{\mathscr{P}}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newenvironment{answer}
+    {\begin{adjustwidth}{0pt}{0pt}}
+    {\end{adjustwidth}}
+
+\newtheorem*{sol}{Solution}
+\newtheorem*{claim}{Claim}
+\newtheorem{problem}{Problem}
+\theoremstyle{remark}  % Style for remarks
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+\setlength{\abovecaptionskip}{0pt} % Reduce space above caption
+% EVERYTHING ABOVE THIS LINE IS JUST PREABLE, NO NEED TO MESS WITH IT.__________________________________________________________________________________________
+
+\lhead{Rawson Duplantis}
+\chead{MTH 4312: Cryptology}
+\rhead{\today}
+
+% 2.1.1: Exercises 2 & 4; 2.1.3: Exercises 1, 3, & 4
+\stepcounter{section}
+\section{Quantum Mechanics}
+\subsection{Photon Polarization}
+\subsubsection{Linear Polarization}
+\stepcounter{problem}
+%\begin{problemgroup}
+    \begin{problem}
+        Consider the matrix $R=\begin{pmatrix}
+            \cos\phi & -\sin\phi \\
+            \sin\phi & \cos\phi
+        \end{pmatrix}$.
+        \begin{enumerate}[label=(\alph*)]
+            \item Show that $R$ is an orthogonal matrix.
+            \item Apply $R$ to the linear polarization state $|s\rangle = \begin{pmatrix}
+                \cos\theta \\
+                \sin\theta
+            \end{pmatrix}$. Describe in everyday language the effect of this transformation on a state of linear polarization.
+        \end{enumerate}
+    \end{problem}
+    \begin{answer}
+        Answer here...
+    \end{answer}
+%\end{problemgroup}
+\stepcounter{problem}
+%\begin{problemgroup}
+    \begin{problem}
+        Let $R=\begin{pmatrix}
+            \cos(\pi/(2n)) & -\sin(\pi/(2n)) \\
+            \sin(\pi/(2n)) & \cos(\pi/(2n))
+        \end{pmatrix}$.
+        \begin{enumerate}[label=(\alph*)]
+            \item Compute $R^n$. That is, compute the product of $n$ factors of $R$, where the multiplication is matrix multiplication. You may find the following trigonometric identities helpful: $\cos\alpha\cos\beta - \sin\alpha\sin\beta = \cos(\alpha + \beta)$; $\cos\alpha\sin\beta + \sin\alpha\cos\beta = \sin(\alpha + \beta)$.
+            \item A horizontally polarized photon passes successively through $n$ small containers of sugar water, each of which effects the transformation $R$. The photon then encounters a polarizing filter whose preferred axis is horizontal. What is the probability of the photon passing the filter?
+            \item Another horizontally polarized photon passes through the same $n$ containers of sugar water. But now, just after each container there is a polarizing filter whose preferred axis is horizontal. What is the probability that the photon will pass through all $n$ filters?
+            \item Find the limit of your answer to part (c) as $n$ approaches infinity.
+        \end{enumerate}
+    \end{problem}
+    \begin{answer}
+        Answer here...
+    \end{answer}
+%\end{problemgroup}
+\setcounter{subsubsection}{2}
+\subsubsection{Circular and Elliptical Polarization}
+\setcounter{problem}{0}
+%\begin{problemgroup}
+    \begin{problem}
+        For each of the following state vectors, find a normalized vector that is orthogonal to the given vector. $$\begin{pmatrix}
+            \nicefrac{\sqrt{3}}{2} \\
+            \nicefrac{1}{2}
+        \end{pmatrix}\quad\begin{pmatrix}
+            \nicefrac{1}{\sqrt{2}} \\
+            \nicefrac{i}{\sqrt{2}}
+        \end{pmatrix}\quad\begin{pmatrix}
+            \nicefrac{1-i}{2} \\
+            \nicefrac{1+i}{2}
+        \end{pmatrix}$$
+    \end{problem}
+    \begin{answer}
+        Answer here...
+    \end{answer}
+%\end{problemgroup}
+\stepcounter{problem}
+%\begin{problemgroup}
+    \begin{problem}
+        The rotation operation $R_\phi$, defined by $$R_\phi=\begin{pmatrix}
+            \cos\phi & -\sin\phi \\
+            \sin\phi & \cos\phi
+        \end{pmatrix}$$ rotates any linear polarization state by an angle $\phi$. What does this transformation do to the right-hand circular polarization state? Is the resulting state a state of linear polarization, circular polarization, or elliptical polarization? Does the answer to this question depend on the value of $\phi$?
+    \end{problem}
+    \begin{answer}
+        Answer here...
+    \end{answer}
+%\end{problemgroup}
+%\begin{problemgroup}
+\begin{problem}
+    Consider the elliptical polarization represented by $|s\rangle = \begin{pmatrix}
+        \nicefrac{1}{\sqrt{2}} \\
+        \nicefrac{1+i}{2}
+    \end{pmatrix}$. Suppose the measurement $M_\theta$ of Example 2.1.6 is applied to a photon in the state $|s\rangle$.
+    \begin{enumerate}[label=(\alph*)]
+        \item Find the probabilities of the two outcomes as functions of $\theta$.
+        \item For what value of $\theta$ do the two probabilities differ the most from each other? The basis defined by $M_\theta$ for this value of $\theta$ can be thought of as giving the "principal axes" of the elliptical polarization.
+    \end{enumerate}
+\end{problem}
+\begin{answer}
+    Answer here...
+\end{answer}
+%\end{problemgroup}
+
+\end{document}
