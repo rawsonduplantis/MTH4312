@@ -143,7 +143,7 @@ citecolor=blue, urlcolor=blue]{hyperref}
                 \sin(\nicefrac{\pi}{2} + \theta)
             \end{pmatrix}
         $$
-    \end{answer} demonstrating that our newly given $R^n$ will always rotate the polarization state by $\nicefrac{\pi}{2}$ radians.
+    \end{answer} demonstrating that our newly given $R^n$ will always rotate the polarization state by $\nicefrac{\pi}{2}$ radians if $n$ rotations are applied before inspection. Moving to part (b), we know that the photon's polarization state will be vertical after passing through $n$ containers. Because the horizontal polarizing filter is orthogonal to the photon's state, there is zero-chance that the photon will survive after a full rotation by the $n$ containers. For part (c), we first can establish that if a photon survives a container-filter combo according to a probability $p$, the photon's state polarization will be horizontal. This means that the total probability will be $p^n$ as the photon's chance of survival is equal at each consequtive filter. To determine $p^n$, we can say $$p = \langle s|m \rangle = |\cos(\pi/(2n)(1) + \sin(\pi/(2n)(0)|^2 = \cos^2(\pi/(2n)) $$$$p^n = \cos^{2n}(\pi/(2n)).$$ For part (d), we know that $\lim_{n\to \infty}\nicefrac{\pi}{2n}=0$ which implies that $\lim_{n\to \infty}\cos^{2n}(\pi/(2n))=1$. Intuitively, as the $n$-th slice gets smaller and smaller as $n$ increases, the photon's state is rotated less and less and a photon will consequently have a better chance to survive a polarized filter, increasing the overall chance of survival.
 %\end{problemgroup}
 \setcounter{subsubsection}{2}
 \subsubsection{Circular and Elliptical Polarization}
@@ -157,12 +157,32 @@ citecolor=blue, urlcolor=blue]{hyperref}
             \nicefrac{1}{\sqrt{2}} \\
             \nicefrac{i}{\sqrt{2}}
         \end{pmatrix}\quad\begin{pmatrix}
-            \nicefrac{1-i}{2} \\
-            \nicefrac{1+i}{2}
+            \nicefrac{(1-i)}{2} \\
+            \nicefrac{(1+i)}{2}
         \end{pmatrix}$$
     \end{problem}
     \begin{answer}
-        Answer here...
+        We proceed with each vector by finding another vector in the same field such that $\langle s|t \rangle=0$:
+        $$\begin{pmatrix}
+            \nicefrac{\sqrt{3}}{2} \\
+            \nicefrac{1}{2}
+        \end{pmatrix}^\perp = \begin{pmatrix}
+            -\nicefrac{1}{2} \\
+            \nicefrac{\sqrt{3}}{2}
+        \end{pmatrix};\quad\begin{pmatrix}
+            \nicefrac{1}{\sqrt{2}} \\
+            \nicefrac{i}{\sqrt{2}}
+        \end{pmatrix}^\perp = \begin{pmatrix}
+            \nicefrac{1}{\sqrt{2}} \\
+            -\nicefrac{i}{\sqrt{2}}
+        \end{pmatrix};\quad\begin{pmatrix}
+            \nicefrac{(1-i)}{2} \\
+            \nicefrac{(1+i)}{2}
+        \end{pmatrix}^\perp = \begin{pmatrix}
+            \nicefrac{(1+i)}{2} \\
+            \nicefrac{(1-i)}{2}
+        \end{pmatrix}$$
+        Vectors in $\mathbb{R}$ are orthogonal if their dot-product is zero. However, for vectors in $\mathbb{C}$, we must determine if their inner product\footnote{This is called the \emph{Hermitian} inner product.}, $\langle u,v \rangle = \bar{u_1}v_1 + \bar{u_2}v_2$, is zero.
     \end{answer}
 %\end{problemgroup}
 \stepcounter{problem}
@@ -174,14 +194,32 @@ citecolor=blue, urlcolor=blue]{hyperref}
         \end{pmatrix}$$ rotates any linear polarization state by an angle $\phi$. What does this transformation do to the right-hand circular polarization state? Is the resulting state a state of linear polarization, circular polarization, or elliptical polarization? Does the answer to this question depend on the value of $\phi$?
     \end{problem}
     \begin{answer}
-        Answer here...
+        To start, let us define a standard right-hand circular polarization state as $|s\rangle=(\nicefrac{1}{\sqrt{2}})\left(\begin{smallmatrix}
+            1 \\
+            i
+        \end{smallmatrix}\right)$.\footnote{We can ensure this is right-handed as $i=i(1)$ according to the quantum physics convention of using the receiver's point-of-view, which is also in-line with the textbook's definition.} We can then calculate the effect of the rotation operation on the photon's state:$$\frac{1}{\sqrt{2}}\begin{pmatrix}
+            \cos\phi & -\sin\phi \\
+            \sin\phi & \cos\phi
+        \end{pmatrix}\begin{pmatrix}
+            1 \\
+            i
+        \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix}
+            \cos\phi - i\sin\phi \\
+            \sin\phi + i\cos\phi
+        \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix}
+            e^{-i\phi} \\
+            ie^{-i\phi}
+        \end{pmatrix} = \left(\frac{e^{-i\phi}}{\sqrt{2}}\right)\begin{pmatrix}
+            1 \\
+            i
+        \end{pmatrix}.$$ Because we are left with the same state vector multiplied by a complex factor, we can confirm that the state remains right-hand circular polarized for all $\phi$.
     \end{answer}
 %\end{problemgroup}
 %\begin{problemgroup}
 \begin{problem}
     Consider the elliptical polarization represented by $|s\rangle = \begin{pmatrix}
         \nicefrac{1}{\sqrt{2}} \\
-        \nicefrac{1+i}{2}
+        \nicefrac{(1+i)}{2}
     \end{pmatrix}$. Suppose the measurement $M_\theta$ of Example 2.1.6 is applied to a photon in the state $|s\rangle$.
     \begin{enumerate}[label=(\alph*)]
         \item Find the probabilities of the two outcomes as functions of $\theta$.
@@ -189,7 +227,17 @@ citecolor=blue, urlcolor=blue]{hyperref}
     \end{enumerate}
 \end{problem}
 \begin{answer}
-    Answer here...
+    Starting with part (a), let's restate the measurement: $$M_\theta=\left(\begin{pmatrix}
+        \cos\theta \\
+        \sin\theta
+    \end{pmatrix},\begin{pmatrix}
+        -\sin\theta \\
+        \cos\theta
+    \end{pmatrix}\right).$$ For probability $p_1$, we can say: $$p_1 = \langle s|m^{(1)} \rangle = \left|\frac{1}{\sqrt{2}}\cos\theta + \frac{1-i}{2}\sin\theta\right|^2.$$ We'll then need to derive its magnitude-squared expansion:\footnote{The general formula is $|a^2+b|^2=|a|^2+2\operatorname{Re}(a\bar{b})+|b|^2$ and is also sometimes referred to as the parallelogram law of complex numbers.} \begin{align*}
+        p_1 &= \left|\frac{1}{\sqrt{2}}\cos\theta\right|^2 + 2\operatorname{Re}(\frac{1}{\sqrt{2}}\cos\theta\cdot \frac{1-i}{2}\sin\theta) + \left|\frac{1-i}{2}\sin\theta\right|^2 \\
+        &= \frac{1}{2}\cos^2\theta + \frac{2\cos\theta\sin\theta}{2\sqrt{2}} + \frac{1}{2}\sin^2\theta \\
+        &= \frac{1}{2} + \frac{\sin2\theta}{2\sqrt{2}}\ \therefore\  p_2 = \frac{1}{2} - \frac{\sin2\theta}{2\sqrt{2}}.
+    \end{align*} For part (b), we can deduce by inspection that the difference in each probability will be maximized when $\frac{\sin2\theta}{2\sqrt{2}}$, which is when $\sin2\theta=\pm 1$. This occurs when $\theta = \pm\nicefrac{\pi}{4}$; thus the principal axes of the elliptical polarization exist at $\nicefrac{\pi}{4}$ and $\nicefrac{-\pi}{4}$.
 \end{answer}
 %\end{problemgroup}
 
