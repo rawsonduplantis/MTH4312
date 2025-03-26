@@ -51,6 +51,7 @@ citecolor=blue, urlcolor=blue]{hyperref}
 \newtheorem{problem}{Problem}
 \theoremstyle{remark}  % Style for remarks
 \newtheorem*{remark}{Remark}
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
 \begin{document}
 \setlength{\abovecaptionskip}{0pt} % Reduce space above caption
@@ -81,7 +82,32 @@ citecolor=blue, urlcolor=blue]{hyperref}
         \end{enumerate}
     \end{problem}
     \begin{answer}
-        Answer here...
+        For part (a), we can determine whether $R$ is orthogonal determining whether $RR^T=I$: $$
+            \begin{pmatrix}
+                \cos\phi & -\sin\phi \\
+                \sin\phi & \cos\phi
+            \end{pmatrix}\begin{pmatrix}
+                \cos\phi & \sin\phi \\
+                -\sin\phi & \cos\phi
+            \end{pmatrix} = \begin{pmatrix}
+                \cos^2\phi + \sin^2\phi & \cos\phi\sin\phi - \sin\phi\cos\phi \\
+                \cos\phi\sin\phi - \sin\phi\cos\phi & \cos^2\phi + \sin^2\phi
+            \end{pmatrix}
+        $$ and, via the Pythagorean identity, we can simplify the resulting matrix to the identity. Thus $R$ is an orthogonal matrix. Moving to part (b), we know that the resulting polarization state, $|s'\rangle$, will be $$
+            R|s\rangle = \begin{pmatrix}
+                \cos\phi & -\sin\phi \\
+                \sin\phi & \cos\phi
+            \end{pmatrix}\begin{pmatrix}
+                \cos\theta \\
+                \sin\theta
+            \end{pmatrix} = \begin{pmatrix}
+                \cos\phi\cos\theta - \sin\phi\sin\theta \\
+                \sin\phi\cos\theta + \cos\phi\sin\theta
+            \end{pmatrix} = \begin{pmatrix}
+                \cos(\phi + \theta) \\
+                \sin(\phi + \theta)
+            \end{pmatrix}\footnotemark
+        $$ which, evidently, is simply an increase in the angle of the linear polarization by $\phi$, resulting in a simple rotation.\footnotetext{I arrived at this final matrix using trigonometric identities provided in Problem 4 part (a).}
     \end{answer}
 %\end{problemgroup}
 \stepcounter{problem}
@@ -99,8 +125,25 @@ citecolor=blue, urlcolor=blue]{hyperref}
         \end{enumerate}
     \end{problem}
     \begin{answer}
-        Answer here...
-    \end{answer}
+        Starting with part (a), we can see from the Problem 2 part (b) that the standard rotation operation $R_\phi$, when applied to a photon's state, rotates it by $\phi$; this operation can be applied $n$ times to rotate the photon's state $n\phi$.\footnote{This applies to our newly assigned $R$ as the trigonometric structure is the same; i.e., the behavior is the same regardless of the provided arguments to the trigonometric functions as long as their positions and sign are the same.} In order to apply this operation $n$ times, we simply multiply the left hand side of the vector by $R^n$. Obfuscating computational steps provided in Problem 2 part (b), we can say, assuming some polarization state $|s\rangle = \left(\begin{smallmatrix}
+            \cos\theta \\
+            \sin\theta
+        \end{smallmatrix}\right)$: $$
+            R^n|s\rangle = \begin{pmatrix}
+                \cos(\pi/(2n)) & -\sin(\pi/(2n)) \\
+                \sin(\pi/(2n)) & \cos(\pi/(2n))
+            \end{pmatrix}^n\begin{pmatrix}
+                \cos\theta \\
+                \sin\theta
+            \end{pmatrix} = \begin{pmatrix}
+                \cos(n\pi/(2n) + \theta) \\
+                \sin(n\pi/(2n) + \theta)
+            \end{pmatrix} = \begin{pmatrix}
+                \cos(\nicefrac{\pi}{2} + \theta) \\
+                \sin(\nicefrac{\pi}{2} + \theta)
+            \end{pmatrix}
+        $$
+    \end{answer} demonstrating that our newly given $R^n$ will always rotate the polarization state by $\nicefrac{\pi}{2}$ radians.
 %\end{problemgroup}
 \setcounter{subsubsection}{2}
 \subsubsection{Circular and Elliptical Polarization}
